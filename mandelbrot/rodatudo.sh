@@ -11,9 +11,3 @@ for (( i = 1; i <= $6; i++ )); do
 	(time ./a.out < entrada.in > saida.out) 2>> tempo.out
 	echo "" >> tempo.out
 done
-
-while read line;do
-	if [[ $line =~  (real	[0-999][m][])]]; then
-		echo "$line "
-	fi
-done < tempo.out

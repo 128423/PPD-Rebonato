@@ -5,13 +5,6 @@
 
 using namespace std;
 
-struct aij
-{
-	int L;
-	int C;
-	
-};
-
 int main(){
 
 	int max_row, max_column, max_n, numteads;
@@ -35,22 +28,7 @@ int main(){
 	
 	char *mat = (char*)malloc(sizeof(char) * max_vet);
 
-	aij *vetaij = (aij*) malloc(sizeof(aij)* max_vet);
 	
-	int l = 0 ;
-	int c = 0 ;
-	for (int i = 0; i < max_vet; ++i)
-	{
-		if (c == max_column)
-		{
-			c = 0;
-			l++;	
-		}
-		vetaij[i].L = l;
-		vetaij[i].C = c;
-		c++;
-
-	}
 
 /*
 	for (int i = 0; i < max_vet; ++i)
@@ -71,8 +49,8 @@ int main(){
 		 n = 0;
 		 while(abs(z) < 2 && ++n < max_n)
 			z = pow(z, 2) + decltype(z) ( 
-				(float) vetaij[i].C * 2 / max_column - 1.5,
-				(float) vetaij[i].L * 2 / max_row - 1 );
+				(float) i % max_vet * 2 / max_column - 1.5,
+				(float) i / max_vet * 2 / max_row - 1 );
 
 		mat[i]=(n == max_n ? '#' : '.');
 	}
