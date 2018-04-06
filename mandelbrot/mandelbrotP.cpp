@@ -13,23 +13,12 @@ struct aij
 };
 
 int main(){
-
-	int max_row, max_column, max_n, numteads;
-	
-	cin >> numteads;
-
-	if(numteads == 4 || numteads == 8 || numteads == 16 || numteads == 2 ){
-
-		omp_set_num_threads(numteads);
-	}else{
-		exit(2);
-	}
-
+	int max_row, max_column, max_n;
 	cin >> max_row;
 	cin >> max_column;
 	cin >> max_n;
 
-	int max_vet = max_row * max_column ;
+	int max_vet = max_row + max_column ;
 
 	//cout << max_vet ;
 	
@@ -61,6 +50,8 @@ int main(){
 */	
 
 	int chunk = 10000;
+	omp_set_num_threads(4);
+
 
 	// x = c*r 
 
@@ -91,4 +82,4 @@ int main(){
 	return 0 ;
 }
 
-
+// feito por luis fernando 30/03/2018

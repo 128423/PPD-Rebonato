@@ -1,30 +1,64 @@
+2 treads
 Execucao 1:
-
-real	0m1.236s
-user	0m4.948s
-sys	0m0.000s
+2.84
 
 Execucao 2:
-
-real	0m1.199s
-user	0m5.164s
-sys	0m0.000s
+3.02
 
 Execucao 3:
-
-real	0m1.033s
-user	0m4.876s
-sys	0m0.000s
+3.03
 
 Execucao 4:
-
-real	0m1.018s
-user	0m4.720s
-sys	0m0.008s
+3.02
 
 Execucao 5:
+3.02
 
-real	0m1.195s
-user	0m4.892s
-sys	0m0.000s
+4 treads
+Execucao 1:
+2.01
+
+Execucao 2:
+2.01
+
+Execucao 3:
+2.04
+
+Execucao 4:
+2.01
+
+Execucao 5:
+2.01
+
+8 treads
+Execucao 1:
+2.03
+
+Execucao 2:
+2.03
+
+Execucao 3:
+2.03
+
+Execucao 4:
+2.03
+
+Execucao 5:
+2.04
+
+16 treads
+Execucao 1:
+2.06
+
+Execucao 2:
+2.04
+
+Execucao 3:
+2.04
+
+Execucao 4:
+2.04
+
+Execucao 5:
+2.04
 

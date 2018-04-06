@@ -22,25 +22,15 @@ int main(){
 	cin >> max_column;
 	cin >> max_n;
 
-	int max_vet = max_row * max_column ;
+	int max_vet = max_row *	max_column ;
 
 	//cout << max_vet ;
 	
 	char *mat = (char*)malloc(sizeof(char) * max_vet);
 
-	
+	int chunk = 1000;
 
-/*
-	for (int i = 0; i < max_vet; ++i)
-	{
-		cout << mat [i] << '\t' << i << '\n' ;
-
-	}
-*/	
-
-	int chunk = 10000;
-
-	// x = c*r 
+	// x = c*r  	
 
 	int n  ;
 	#pragma omp parallel for private(n) schedule(dynamic,chunk) 
@@ -49,24 +39,18 @@ int main(){
 		 n = 0;
 		 while(abs(z) < 2 && ++n < max_n)
 			z = pow(z, 2) + decltype(z) ( 
-				(float) i % max_vet * 2 / max_column - 1.5,
-				(float) i / max_vet * 2 / max_row - 1 );
+				(float) ( i % max_column) * 2 / max_column - 1.5,
+				(float) (i / max_column)  * 2 / max_row - 1 );
 
 		mat[i]=(n == max_n ? '#' : '.');
 	}
 	
 	
-	c = 0;
-		for (int i = 0; i < max_vet; ++i)
-	{
-		cout << mat [i];
-		c++;
-		if(c == max_column){
-			cout << '\n' ;
-			c = 0 ;
-		}
-	}
-	return 0 ;
+	for(int r = 0; r < max_row; ++r){
+		for(int c = 0; c < max_column; ++c)
+			std::cout << mat[r*max_column + c];
+		cout << '\n';
+	}		return 0 ;
 }
 
 

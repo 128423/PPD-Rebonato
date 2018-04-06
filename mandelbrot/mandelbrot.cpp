@@ -10,8 +10,10 @@ int main(){
 	cin >> max_column;
 	cin >> max_n;
 
+	// cria um vetor de linha 
 	char **mat = (char**)malloc(sizeof(char*)*max_row);
 
+	//
 	for (int i=0; i<max_row;i++)
 		mat[i]=(char*)malloc(sizeof(char)*max_column);
 
