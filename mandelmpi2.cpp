@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
             MPI_Recv(reciver, chunk, MPI_CHAR, MPI_ANY_SOURCE, MPI_ANY_TAG,MPI_COMM_WORLD, &status);
              //colocar na vet;
             source = status.MPI_SOURCE;
-                 
+            indproc = vetind[source];
 
             for(int i =0 ;i  <  chunk;i++){
                 vet[(i + indproc)]= reciver[i];
