@@ -59,8 +59,7 @@ int main(int argc, char *argv[])
             indproc = vetind[source];
 
             for(int i =0;i  <  chunk;i++){
-                std::cout << reciver[i];
-                //vet[(i + indproc)]= reciver[i];
+                vet[(i + indproc)]= reciver[i];
              }    
             //vet[vetind[source]] = reciver;
 
@@ -85,12 +84,12 @@ int main(int argc, char *argv[])
 
         
             
-            // for (int r = 0; r < max_row; ++r)
-            //  {
-            //     for (int c = 0; c < max_column; ++c)
-            //          std::cout << vet[r * max_column + c];
-            //     std::cout << '\n';
-            //  }
+            for (int r = 0; r < max_row; ++r)
+             {
+                for (int c = 0; c < max_column; ++c)
+                     std::cout << vet[r * max_column + c];
+                std::cout << '\n';
+             }
     }
     else
 
@@ -113,10 +112,12 @@ int main(int argc, char *argv[])
 
                 vet[i] = (n == max_n ? '#' : '.');
                 ind++;
+              //  std::cout << vet[i];
             }
         
         
-            MPI_Send(&vet,chunk,MPI_CHAR,0,tag,MPI_COMM_WORLD);
+            MPI_Send(vet,chunk,MPI_CHAR,0,tag,MPI_COMM_WORLD);
+
             MPI_Recv(&ind,1,MPI_INT,0,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
 
         }
