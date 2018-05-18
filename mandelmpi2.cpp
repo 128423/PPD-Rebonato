@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 
     int max_row, max_column, max_n, numprocs, ind;
-    int n, parte;
+    int n;
     int max_vet;
     int procs, meurank;
     int chunk, auxchunk;
@@ -26,11 +26,9 @@ int main(int argc, char *argv[])
     max_n = atoi(argv[3]);
 
     max_vet = max_row * max_column;
-
-    //parte = max_vet/(procs);
-
     chunk = 100;
     auxchunk = max_vet % chunk;
+
     if(auxchunk == 0 ){
         auxchunk = chunk;
     }
@@ -41,70 +39,90 @@ int main(int argc, char *argv[])
         int vetind[procs];
         char *reciver;
         int source;
+        int indproc;
         vet = (char *)malloc(sizeof(char) * (max_vet+(chunk - auxchunk)));
         reciver = (char *)malloc(sizeof(char) * chunk);
-
         ind = 0;
+        vetind[0]=0;
         for (int i = 1; i < procs; i++)
         {
             MPI_Send(&ind, 1, MPI_INT, i, tag, MPI_COMM_WORLD);
             vetind[i] = ind;
             ind += chunk;
-        }
-        for (int i = 0; i < max_vet; i++)
+        }       
+        
+        while(ind < max_vet)
         {
-            MPI_Recv(&reciver, chunk, MPI_BYTE, MPI_ANY_SOURCE, MPI_ANY_TAG,
-                     MPI_COMM_WORLD, &status)
-
+            MPI_Recv(reciver, chunk, MPI_CHAR, MPI_ANY_SOURCE, MPI_ANY_TAG,MPI_COMM_WORLD, &status);
             source = status.MPI_SOURCE;
 
-            vet[vetind[source]] = reciver;
+            indproc = vetind[source];
 
-            if (ind < max_vet)
-            {
-                MPI_Send(&ind,1,MPI_INT,source),tag,MPI_COMM_WORLD);
-                vetind[source] = ind;
-                ind += chunk;
-            }else{
-                MPI_Send(0,1,MPI_INT,source,die_tag,MPI_COMM_WORLD);
+            for(int i =0;i  <  chunk;i++){
+                std::cout << reciver[i];
+                //vet[(i + indproc)]= reciver[i];
+             }    
+            //vet[vetind[source]] = reciver;
 
+            MPI_Send(&ind,1,MPI_INT,source,tag,MPI_COMM_WORLD);
+            vetind[source] = ind;
+            ind += chunk;
+
+         }
+
+         for(int i = 1 ; i < procs;i++){
+            MPI_Recv(reciver, chunk, MPI_CHAR, MPI_ANY_SOURCE, MPI_ANY_TAG,MPI_COMM_WORLD, &status);
+             //colocar na vet;
+            source = status.MPI_SOURCE;
+                 
+
+            for(int i =0 ;i  <  chunk;i++){
+                vet[(i + indproc)]= reciver[i];
             }
+              
+            MPI_Send(&die_tag,1,MPI_INT,source,die_tag,MPI_COMM_WORLD);
         }
 
-        ind = 0;
-        for (int r = 0; r < max_row; ++r)
-        {
-            for (int c = 0; c < max_column; ++c)
-                std::cout << vet[r * max_column + c];
-            std::cout << '\n';
-        }
+        
+            
+            // for (int r = 0; r < max_row; ++r)
+            //  {
+            //     for (int c = 0; c < max_column; ++c)
+            //          std::cout << vet[r * max_column + c];
+            //     std::cout << '\n';
+            //  }
     }
     else
+
     {
+        //std::cout << "chegou aqui" << meurank << "\n";
         vet = (char *)malloc(sizeof(char) * chunk);
+        
+        MPI_Recv(&ind,1, MPI_INT,0, MPI_ANY_TAG,MPI_COMM_WORLD, &  status);
+        while(status.MPI_TAG > 0){
 
-        for (int i = 0; i < parte; ++i)
-        {
-            std::complex<float> z;
-            n = 0;
-            while (abs(z) < 2 && ++n < max_n)
-                z = pow(z, 2) + decltype(z)(
-                                    (float)(ind % max_column) * 2 / max_column - 1.5,
-                                    (float)(ind / max_column) * 2 / max_row - 1);
 
-            vet[i] = (n == max_n ? '#' : '.');
-            ind++;
+            for (int i = 0; i < chunk; ++i)
+            {
+                std::complex<float> z;
+                n = 0;
+                while (abs(z) < 2 && ++n < max_n)
+                    z = pow(z, 2) + decltype(z)(
+                                        (float)(ind % max_column) * 2 / max_column - 1.5,
+                                        (float)(ind / max_column) * 2 / max_row - 1);
+
+                vet[i] = (n == max_n ? '#' : '.');
+                ind++;
+            }
+        
+        
+            MPI_Send(&vet,chunk,MPI_CHAR,0,tag,MPI_COMM_WORLD);
+            MPI_Recv(&ind,1,MPI_INT,0,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
+
         }
+        
 
     }
-
-    // // std::cout << "chegou aqui  " << meurank << '\n';
-
-    // MPI_Barrier(MPI_COMM_WORLD);
-    // // std::cout << "sinq " << meurank << '\n';
-    // MPI_Gather(vet, parte, MPI_BYTE,
-    // 		   vet, parte, MPI_BYTE,
-    // 		   0, MPI_COMM_WORLD);
 
     MPI_Finalize();
 
