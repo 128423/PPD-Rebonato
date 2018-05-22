@@ -1,0 +1,30 @@
+Execucao 1:
+
+real	1m48.543s
+user	14m18.572s
+sys	0m0.044s
+
+Execucao 2:
+
+real	1m48.286s
+user	14m18.752s
+sys	0m0.016s
+
+Execucao 3:
+
+real	1m48.500s
+user	14m18.232s
+sys	0m0.048s
+
+Execucao 4:
+
+real	1m48.676s
+user	14m18.560s
+sys	0m0.068s
+
+Execucao 5:
+
+real	1m49.134s
+user	14m18.516s
+sys	0m0.112s
+

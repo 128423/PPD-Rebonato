@@ -1,0 +1,64 @@
+2 treads
+Execucao 1:
+2.84
+
+Execucao 2:
+3.02
+
+Execucao 3:
+3.03
+
+Execucao 4:
+3.02
+
+Execucao 5:
+3.02
+
+4 treads
+Execucao 1:
+2.01
+
+Execucao 2:
+2.01
+
+Execucao 3:
+2.04
+
+Execucao 4:
+2.01
+
+Execucao 5:
+2.01
+
+8 treads
+Execucao 1:
+2.03
+
+Execucao 2:
+2.03
+
+Execucao 3:
+2.03
+
+Execucao 4:
+2.03
+
+Execucao 5:
+2.04
+
+16 treads
+Execucao 1:
+2.06
+
+Execucao 2:
+2.04
+
+Execucao 3:
+2.04
+
+Execucao 4:
+2.04
+
+Execucao 5:
+2.04
+
